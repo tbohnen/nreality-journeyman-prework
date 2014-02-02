@@ -10,6 +10,14 @@ namespace FizzBuzz
     {
         static void Main(string[] args)
         {
+            var printer = new Printer();
+
+            for (int i = 0; i < 100; i++)
+            {
+                Console.WriteLine(printer.NextNumber());
+            }
+
+            Console.Read();
         }
     }
 }
