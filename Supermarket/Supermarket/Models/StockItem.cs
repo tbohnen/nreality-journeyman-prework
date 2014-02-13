@@ -1,34 +1,15 @@
 ﻿namespace Supermarket.Models
 {
-    public class StockItem
+    public class StockItem : OrderItem
     {
-        private decimal _costPrice;
-        private string _stockCode;
-        private string _stockDescription;
 
-        public StockItem(string stockCode, string stockDescription, decimal costPrice)
-        {
-            _stockCode = stockCode;
-            _stockDescription = stockDescription;
-            _costPrice = costPrice;
-        }
+        public decimal CostPrice { get; set; }
 
-        public decimal CostPrice
-        {
-            get { return _costPrice; }
-            set { _costPrice = value; }
-        }
 
-        public string StockCode
+        public StockItem(string code, string description, decimal price, decimal costPrice)
+            : base(code, description, price)
         {
-            get { return _stockCode; }
-            set { _stockCode = value; }
-        }
-
-        public string StockDescription
-        {
-            get { return _stockDescription; }
-            set { _stockDescription = value; }
-        }
+            CostPrice = costPrice;
+        }   
     }
 }
