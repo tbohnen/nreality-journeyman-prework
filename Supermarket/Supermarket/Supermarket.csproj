@@ -39,11 +39,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderItem.cs" />
+    <Compile Include="Models\Special.cs" />
+    <Compile Include="Models\SpecialOnQuantity.cs" />
+    <Compile Include="Models\Specials.cs" />
+    <Compile Include="Models\SpecialsLoader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\StockItem.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Modles\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

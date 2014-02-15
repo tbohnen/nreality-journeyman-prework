@@ -14,7 +14,7 @@ namespace Supermarket.Tests
         [TestCase("0012345678","Can of beans",10d, 8d)]
         public void CreateStockItem_StockItemCreated(string stockCode, string stockDescription, decimal sellingPrice, decimal stockCost)
         {
-            var stockItem = new StockItem(stockCode, stockDescription, sellingPrice, stockCost);
+            var stockItem = new StockOrderItem(stockCode, stockDescription, sellingPrice, stockCost);
 
             Assert.IsNotNull(stockItem);
         }

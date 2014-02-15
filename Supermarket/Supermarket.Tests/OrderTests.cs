@@ -11,44 +11,43 @@ namespace Supermarket.Tests
     [TestFixture]
     class OrderTests
     {
+        Moq.Mock<SpecialsLoader> _specialsLoader;
+
+        [SetUp]
+        public void SetUp()
+        {
+            _specialsLoader = new Moq.Mock<SpecialsLoader>();
+        }
 
         [TestCase("123", "Can of beans", 5, 5d, 3d, 25d)]
         public void OrderStock_ReturnOrderWithFullPrice(string stockCode, string stockDesc, int quantity, decimal price, decimal costPrice, decimal expectedPrice)
         {
-            Order order = new Order();
-            OrderItem stockItem = new StockItem(stockCode, stockDesc, price, costPrice);
+            Order order = new Order(new Specials(_specialsLoader.Object));
+            OrderItem stockItem = new StockOrderItem(stockCode, stockDesc, price, costPrice);
 
             order.AddOrderItem(stockItem, quantity);
 
-            Assert.AreEqual(expectedPrice, order.Total);
+            Assert.AreEqual(expectedPrice, order.TotalCost);
         }
 
         [Test]
         public void OrderStock_ReturnOrderWithDiscountedStock()
         {
-            Order order = new Order();
-            OrderItem stockItem = new StockItem("123", "Can of beans", 5, 4);
+            OrderItem stockItem = new StockOrderItem("123", "Can of beans", 5, 4);
+            //var special = new Moq.Mock<Special>()
+            //    .Setup(s => s.GetDiscountOnOrderItem(stockItem,1))
+            //    .Returns(;
+
+            //_specialsLoader
+            //    .Setup(s => s.Load())
+            //    .Returns(new List<Special);
+
+            Order order = new Order( new Specials(_specialsLoader.Object));
+            
             order.AddOrderItem(stockItem,1);
 
-            Assert.AreEqual(5, order.Total);
+            Assert.AreEqual(5, order.TotalCost);
         }
 
-    }
-
-    internal class Order
-    {
-        Dictionary<OrderItem, int> _orderItems = new Dictionary<OrderItem, int>();
-
-        internal void AddOrderItem(OrderItem stockItem, int quantity)
-        {
-            _orderItems.Add(stockItem, quantity);
-        }
-
-        public decimal Total {
-            get
-            {
-                return _orderItems.Sum(o => o.Key.SellingPrice * o.Value);
-            }
-        }
     }
 }
