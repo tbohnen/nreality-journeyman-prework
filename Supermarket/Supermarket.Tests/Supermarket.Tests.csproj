@@ -47,7 +47,6 @@
   <ItemGroup>
     <Compile Include="OrderTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SpecialOnQuantity.cs" />
     <Compile Include="SpecialOnQuantityTests.cs" />
     <Compile Include="SpecialsTests.cs" />
     <Compile Include="SpecialTests.cs" />

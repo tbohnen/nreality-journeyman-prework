@@ -11,10 +11,10 @@ namespace Supermarket.Tests
     [TestFixture]
     class StockItemTests
     {
-        [TestCase("0012345678","Can of beans",10d, 8d)]
-        public void CreateStockItem_StockItemCreated(string stockCode, string stockDescription, decimal sellingPrice, decimal stockCost)
+        [TestCase("0012345678","Can of beans",10d)]
+        public void CreateStockItem_StockItemCreated(string stockCode, string stockDescription, decimal sellingPrice)
         {
-            var stockItem = new StockOrderItem(stockCode, stockDescription, sellingPrice, stockCost);
+            var stockItem = new StockOrderItem(stockCode, stockDescription, sellingPrice);
 
             Assert.IsNotNull(stockItem);
         }

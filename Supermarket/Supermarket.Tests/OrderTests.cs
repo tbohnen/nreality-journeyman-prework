@@ -22,31 +22,46 @@ namespace Supermarket.Tests
         [TestCase("123", "Can of beans", 5, 5d, 3d, 25d)]
         public void OrderStock_ReturnOrderWithFullPrice(string stockCode, string stockDesc, int quantity, decimal price, decimal costPrice, decimal expectedPrice)
         {
-            Order order = new Order(new Specials(_specialsLoader.Object));
-            OrderItem stockItem = new StockOrderItem(stockCode, stockDesc, price, costPrice);
+            Order order = new Order();
+            OrderItem stockItem = new StockOrderItem(stockCode, stockDesc, price);
 
             order.AddOrderItem(stockItem, quantity);
 
             Assert.AreEqual(expectedPrice, order.TotalCost);
         }
 
-        [Test]
-        public void OrderStock_ReturnOrderWithDiscountedStock()
+        [TestCase(1, 5)]
+        [TestCase(2, 9)]
+        [TestCase(3, 14)]
+        [TestCase(4, 18)]
+        [TestCase(5, 23)]
+        public void OrderStock_ReturnOrderWithDiscountedStockPriceOnQuantity(int orderQuantity, decimal totalCost)
         {
-            OrderItem stockItem = new StockOrderItem("123", "Can of beans", 5, 4);
-            //var special = new Moq.Mock<Special>()
-            //    .Setup(s => s.GetDiscountOnOrderItem(stockItem,1))
-            //    .Returns(;
-
-            //_specialsLoader
-            //    .Setup(s => s.Load())
-            //    .Returns(new List<Special);
+            OrderItem stockItem = new StockOrderItem("123", "", 5);
+            var amountOffOnQuantitySpecial = new SpecialOnQuantity(stockItem, 2, 1);
+            
+            _specialsLoader.Setup(s => s.Load()).Returns(new List<Special> { amountOffOnQuantitySpecial });
 
             Order order = new Order( new Specials(_specialsLoader.Object));
             
-            order.AddOrderItem(stockItem,1);
+            order.AddOrderItem(stockItem, orderQuantity);
 
-            Assert.AreEqual(5, order.TotalCost);
+            Assert.AreEqual(totalCost, order.TotalCost);
+        }
+
+        [TestCase(1, 5)]
+        [TestCase(3, 10)]
+        public void OrderStock_ReturnOrderWithDiscountedStockPriceBuyTwoGetOneFree(int orderQuantity, decimal orderTotal)
+        {
+            OrderItem stockItem = new StockOrderItem("123", "", 5);
+            var amountOffOnQuantitySpecial = new SpecialOnQuantity(stockItem, 3, 5);
+            _specialsLoader.Setup(s => s.Load()).Returns(new List<Special> { amountOffOnQuantitySpecial });
+
+            Order order = new Order(new Specials(_specialsLoader.Object));
+            order.AddOrderItem(stockItem, orderQuantity);
+
+            Assert.AreEqual(orderTotal, order.TotalCost);
+
         }
 
     }

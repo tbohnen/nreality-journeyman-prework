@@ -20,8 +20,5 @@ namespace Supermarket.Tests
             Assert.IsNotNull(special);
         }
 
-        //[Test]
-        //public void 
-
     }
 }

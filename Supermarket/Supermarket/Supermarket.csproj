@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderItem.cs" />
+    <Compile Include="Models\OrderItemList.cs" />
     <Compile Include="Models\Special.cs" />
     <Compile Include="Models\SpecialOnQuantity.cs" />
     <Compile Include="Models\Specials.cs" />

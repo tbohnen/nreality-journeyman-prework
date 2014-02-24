@@ -2,14 +2,11 @@
 {
     public class StockOrderItem : OrderItem
     {
-
-        public decimal CostPrice { get; set; }
-
-
-        public StockOrderItem(string code, string description, decimal price, decimal costPrice)
+        public StockOrderItem(string code, string description, decimal price)
             : base(code, description, price)
         {
-            CostPrice = costPrice;
-        }   
+
+        }
+
     }
 }

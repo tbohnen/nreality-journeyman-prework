@@ -9,24 +9,28 @@ namespace Supermarket.Models
 {
     public class SpecialOnQuantity : Special
     {
-        private int _quantity;
         private decimal _discountPerQuantity;
-        int _specialQuantity;
+        int _eligibleQuantity;
+        private OrderItem _orderItem;
 
-        public SpecialOnQuantity(OrderItem orderItem, int specialQuantity, decimal discountPerQuantity)
+        public SpecialOnQuantity(OrderItem orderItem, int eligibleQuantity, decimal discountPerQuantity)
         {
-            OrderItem = orderItem;
-            _specialQuantity = specialQuantity;
+            _orderItem = orderItem;
+            _eligibleQuantity = eligibleQuantity;
             _discountPerQuantity = discountPerQuantity;
         }
 
         public decimal GetDiscountOnOrderItem(int quantity)
         {
-            int numberOfTimesToApplyDiscount = quantity / _specialQuantity;
+            int numberOfTimesToApplyDiscount = quantity / _eligibleQuantity;
             return numberOfTimesToApplyDiscount * _discountPerQuantity;
         }
 
-        public OrderItem OrderItem { get; set; }
+        public OrderItem OrderItem
+        {
+            get { return _orderItem; }
+            set { _orderItem = value; }
+        }
         
     }
 }
