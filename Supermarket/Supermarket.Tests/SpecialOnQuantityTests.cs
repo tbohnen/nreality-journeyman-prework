@@ -37,6 +37,5 @@ namespace Supermarket.Tests
 
         }
 
-
     }
 }

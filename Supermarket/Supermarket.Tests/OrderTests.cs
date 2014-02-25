@@ -64,5 +64,21 @@ namespace Supermarket.Tests
 
         }
 
+        [TestCase(1, 5)]
+        [TestCase(3, 15)]
+        public void OrderWithSpecialsButNonDiscountedStock_ReturnsFullPrice(int orderQuantity, decimal orderTotal)
+        {
+            OrderItem stockItem = new StockOrderItem("123", "", 5);
+            OrderItem specialStockItem = new StockOrderItem("1234", "", 5);
+            var amountOffOnQuantitySpecial = new SpecialOnQuantity(specialStockItem, 3, 5);
+            _specialsLoader.Setup(s => s.Load()).Returns(new List<Special> { amountOffOnQuantitySpecial });
+
+            Order order = new Order(new Specials(_specialsLoader.Object));
+            order.AddOrderItem(stockItem, orderQuantity);
+
+            Assert.AreEqual(orderTotal, order.TotalCost);
+
+        }
+
     }
 }
